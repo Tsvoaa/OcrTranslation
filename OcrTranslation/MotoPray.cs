@@ -17,6 +17,11 @@ namespace OcrTranslation
         private void btnStart_Click(object sender, EventArgs e)
         {
             startSwitch = true;
+
+            //테스트 코드
+            Papago papago = new Papago();
+            papago.Translation(this.txtTest1.Lines.Length);
+
         }
 
         private void btnStop_Click(object sender, EventArgs e)
