@@ -34,6 +34,8 @@
             this.btnLocation = new System.Windows.Forms.Button();
             this.btnSetting = new System.Windows.Forms.Button();
             this.tTimer = new System.Windows.Forms.Timer(this.components);
+            this.txtTest1 = new System.Windows.Forms.TextBox();
+            this.txtTest2 = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
             // 
             // btnStart
@@ -78,11 +80,29 @@
             // 
             this.tTimer.Interval = 1000;
             // 
+            // txtTest1
+            // 
+            this.txtTest1.Location = new System.Drawing.Point(529, 12);
+            this.txtTest1.Multiline = true;
+            this.txtTest1.Name = "txtTest1";
+            this.txtTest1.Size = new System.Drawing.Size(259, 194);
+            this.txtTest1.TabIndex = 4;
+            // 
+            // txtTest2
+            // 
+            this.txtTest2.Location = new System.Drawing.Point(529, 212);
+            this.txtTest2.Multiline = true;
+            this.txtTest2.Name = "txtTest2";
+            this.txtTest2.Size = new System.Drawing.Size(259, 226);
+            this.txtTest2.TabIndex = 5;
+            // 
             // MotoPray
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.txtTest2);
+            this.Controls.Add(this.txtTest1);
             this.Controls.Add(this.btnSetting);
             this.Controls.Add(this.btnLocation);
             this.Controls.Add(this.btnStop);
@@ -90,6 +110,7 @@
             this.Name = "MotoPray";
             this.Text = "MotoPray";
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -100,5 +121,7 @@
         private Button btnLocation;
         private Button btnSetting;
         private System.Windows.Forms.Timer tTimer;
+        public TextBox txtTest1;
+        public TextBox txtTest2;
     }
 }
