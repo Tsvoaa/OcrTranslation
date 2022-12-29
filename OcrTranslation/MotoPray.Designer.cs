@@ -37,6 +37,10 @@
             this.txtTest1 = new System.Windows.Forms.TextBox();
             this.txtTest2 = new System.Windows.Forms.TextBox();
             this.cbScreenSelect = new System.Windows.Forms.ComboBox();
+            this.pbOrigin = new System.Windows.Forms.PictureBox();
+            this.pbRemaster = new System.Windows.Forms.PictureBox();
+            ((System.ComponentModel.ISupportInitialize)(this.pbOrigin)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbRemaster)).BeginInit();
             this.SuspendLayout();
             // 
             // btnStart
@@ -107,11 +111,29 @@
             this.cbScreenSelect.Size = new System.Drawing.Size(78, 23);
             this.cbScreenSelect.TabIndex = 6;
             // 
+            // pbOrigin
+            // 
+            this.pbOrigin.Location = new System.Drawing.Point(12, 186);
+            this.pbOrigin.Name = "pbOrigin";
+            this.pbOrigin.Size = new System.Drawing.Size(245, 234);
+            this.pbOrigin.TabIndex = 7;
+            this.pbOrigin.TabStop = false;
+            // 
+            // pbRemaster
+            // 
+            this.pbRemaster.Location = new System.Drawing.Point(263, 186);
+            this.pbRemaster.Name = "pbRemaster";
+            this.pbRemaster.Size = new System.Drawing.Size(260, 234);
+            this.pbRemaster.TabIndex = 8;
+            this.pbRemaster.TabStop = false;
+            // 
             // MotoPray
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.ClientSize = new System.Drawing.Size(800, 584);
+            this.Controls.Add(this.pbRemaster);
+            this.Controls.Add(this.pbOrigin);
             this.Controls.Add(this.cbScreenSelect);
             this.Controls.Add(this.txtTest2);
             this.Controls.Add(this.txtTest1);
@@ -122,6 +144,8 @@
             this.Name = "MotoPray";
             this.Text = "MotoPray";
             this.Load += new System.EventHandler(this.MotoPray_Load);
+            ((System.ComponentModel.ISupportInitialize)(this.pbOrigin)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbRemaster)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -137,5 +161,7 @@
         public TextBox txtTest1;
         public TextBox txtTest2;
         private ComboBox cbScreenSelect;
+        public PictureBox pbOrigin;
+        public PictureBox pbRemaster;
     }
 }

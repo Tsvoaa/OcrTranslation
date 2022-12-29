@@ -34,8 +34,13 @@ namespace OcrTranslation
             startSwitch = true;
 
             //테스트 코드
-            Papago papago = new Papago();
-            papago.Translation(this.txtTest1.Lines.Length);
+            //Papago papago = new Papago();
+            //papago.Translation(this.txtTest1.Lines.Length);
+
+            OpenCV cv = new OpenCV();
+
+            cv.ImageCapture();
+            cv.OpenCVImage();
 
         }
 

@@ -15,6 +15,13 @@
     <PackageReference Include="IronOcr.Languages.Korean" Version="2020.11.2" />
     <PackageReference Include="MouseKeyHook.NetCore" Version="5.6.1.1" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.2" />
+    <PackageReference Include="OpenCvSharp4" Version="4.6.0.20220608" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="OpenCvSharpExtern.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 
 </Project>
