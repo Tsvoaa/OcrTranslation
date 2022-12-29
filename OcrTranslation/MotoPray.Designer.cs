@@ -36,6 +36,7 @@
             this.tTimer = new System.Windows.Forms.Timer(this.components);
             this.txtTest1 = new System.Windows.Forms.TextBox();
             this.txtTest2 = new System.Windows.Forms.TextBox();
+            this.cbScreenSelect = new System.Windows.Forms.ComboBox();
             this.SuspendLayout();
             // 
             // btnStart
@@ -66,6 +67,7 @@
             this.btnLocation.TabIndex = 2;
             this.btnLocation.Text = "영역지정";
             this.btnLocation.UseVisualStyleBackColor = true;
+            this.btnLocation.Click += new System.EventHandler(this.btnLocation_Click);
             // 
             // btnSetting
             // 
@@ -96,11 +98,21 @@
             this.txtTest2.Size = new System.Drawing.Size(259, 226);
             this.txtTest2.TabIndex = 5;
             // 
+            // cbScreenSelect
+            // 
+            this.cbScreenSelect.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbScreenSelect.FormattingEnabled = true;
+            this.cbScreenSelect.Location = new System.Drawing.Point(93, 70);
+            this.cbScreenSelect.Name = "cbScreenSelect";
+            this.cbScreenSelect.Size = new System.Drawing.Size(78, 23);
+            this.cbScreenSelect.TabIndex = 6;
+            // 
             // MotoPray
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.cbScreenSelect);
             this.Controls.Add(this.txtTest2);
             this.Controls.Add(this.txtTest1);
             this.Controls.Add(this.btnSetting);
@@ -109,6 +121,7 @@
             this.Controls.Add(this.btnStart);
             this.Name = "MotoPray";
             this.Text = "MotoPray";
+            this.Load += new System.EventHandler(this.MotoPray_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -123,5 +136,6 @@
         private System.Windows.Forms.Timer tTimer;
         public TextBox txtTest1;
         public TextBox txtTest2;
+        private ComboBox cbScreenSelect;
     }
 }
