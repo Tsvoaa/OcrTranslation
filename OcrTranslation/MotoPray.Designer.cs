@@ -88,7 +88,7 @@
             // 
             // txtTest1
             // 
-            this.txtTest1.Location = new System.Drawing.Point(529, 12);
+            this.txtTest1.Location = new System.Drawing.Point(280, 12);
             this.txtTest1.Multiline = true;
             this.txtTest1.Name = "txtTest1";
             this.txtTest1.Size = new System.Drawing.Size(259, 194);
@@ -96,10 +96,10 @@
             // 
             // txtTest2
             // 
-            this.txtTest2.Location = new System.Drawing.Point(529, 212);
+            this.txtTest2.Location = new System.Drawing.Point(545, 12);
             this.txtTest2.Multiline = true;
             this.txtTest2.Name = "txtTest2";
-            this.txtTest2.Size = new System.Drawing.Size(259, 226);
+            this.txtTest2.Size = new System.Drawing.Size(259, 194);
             this.txtTest2.TabIndex = 5;
             // 
             // cbScreenSelect
@@ -113,17 +113,17 @@
             // 
             // pbOrigin
             // 
-            this.pbOrigin.Location = new System.Drawing.Point(12, 186);
+            this.pbOrigin.Location = new System.Drawing.Point(12, 210);
             this.pbOrigin.Name = "pbOrigin";
-            this.pbOrigin.Size = new System.Drawing.Size(245, 234);
+            this.pbOrigin.Size = new System.Drawing.Size(404, 298);
             this.pbOrigin.TabIndex = 7;
             this.pbOrigin.TabStop = false;
             // 
             // pbRemaster
             // 
-            this.pbRemaster.Location = new System.Drawing.Point(263, 186);
+            this.pbRemaster.Location = new System.Drawing.Point(422, 212);
             this.pbRemaster.Name = "pbRemaster";
-            this.pbRemaster.Size = new System.Drawing.Size(260, 234);
+            this.pbRemaster.Size = new System.Drawing.Size(867, 532);
             this.pbRemaster.TabIndex = 8;
             this.pbRemaster.TabStop = false;
             // 
@@ -131,7 +131,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 584);
+            this.ClientSize = new System.Drawing.Size(1301, 756);
             this.Controls.Add(this.pbRemaster);
             this.Controls.Add(this.pbOrigin);
             this.Controls.Add(this.cbScreenSelect);
