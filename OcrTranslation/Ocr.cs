@@ -9,8 +9,8 @@ namespace OcrTranslation
 {
     internal class Ocr
     {
-        private static int count = 0;
-        private static string path = "D:\\cap\\" + count + "aaa.png";
+        private static int count = 99;
+        private static string path = "D:\\cap\\" + count + "bbb.png";
 
         public void ImageOcr()
         {
@@ -37,11 +37,11 @@ namespace OcrTranslation
             using (var Input = new OcrInput(@path))
             {
                 // 디지털 노이즈 및 스캔 불량 수정
-                Input.DeNoise();
-                Input.Contrast();
+                //Input.DeNoise();
+                //Input.Contrast();
                 // 회전 및 원근 수정
                 //Input.Deskew();
-                Input.EnhanceResolution();
+                //Input.EnhanceResolution();
 
                 var Result = Ocr.Read(Input);
                 MotoPray.motoPray.txtTest1.Text = Result.Text;

@@ -13,19 +13,21 @@ namespace OcrTranslation
 
         Mat mat = new Mat();
 
+        int count = 99;
+
         public void OpenCVImage()
         {
             
 
-            int count = 99;
-
             string path = "D:\\cap\\" + count + "aaa.png";
 
-            GrayScale(path);
-
+            ImageProcessing(path);
+            count++;
         }
 
-        private void GrayScale(string uri)
+        
+
+        private void ImageProcessing(string uri)
         {
             string path = uri;
 
@@ -44,14 +46,15 @@ namespace OcrTranslation
             // GrayScale로 변환
             Cv2.CvtColor(src, gray, ColorConversionCodes.BGR2GRAY);
             // 바이너리, 이진화로 흑백으로 변환
-            Cv2.Threshold(gray, binary, 50, 255, ThresholdTypes.Binary);
+            Cv2.Threshold(gray, binary, 120, 255, ThresholdTypes.Binary);
             // 노이즈 제거
             Cv2.MedianBlur(binary, blur, ksize: 1);
 
+            
             Point[][] contours;
             HierarchyIndex[] hierarchy;
 
-            result = blur.Clone();
+            src.CopyTo(result);
 
             Cv2.InRange(blur, new Scalar(0, 127, 127), new Scalar(100, 255, 255), line);
             Cv2.FindContours(line, out contours, out hierarchy, RetrievalModes.Tree, ContourApproximationModes.ApproxTC89KCOS);
@@ -61,7 +64,7 @@ namespace OcrTranslation
             foreach (Point[] p in contours)
             {
                 double length = Cv2.ArcLength(p, true);
-                if(length > 10)
+                if(length > 100)
                 {
                     new_contours.Add(p);
                 }
@@ -69,24 +72,37 @@ namespace OcrTranslation
 
             
 
-            Cv2.DrawContours(result, new_contours, -1, new Scalar(255, 0, 0), 2, LineTypes.AntiAlias, null, 1);
+            Cv2.DrawContours(result, new_contours, -1, Scalar.Red, 2, LineTypes.AntiAlias);
+            
+
+            /*
+            Mat hierarchy1 = new Mat();
+            Mat src2 = new Mat();
+            src.CopyTo(src2);
+            Cv2.FindContours(blur, out Mat[] contour1, hierarchy1, RetrievalModes.Tree, ContourApproximationModes.ApproxSimple);
+            for (int i = 0; i < contour1.Length; i++)
+            {
+                Cv2.DrawContours(src2, contour1, i, Scalar.Red, 3, LineTypes.AntiAlias);
+            }
+            */
+            
 
             // 이미지 생성
-            Cv2.ImWrite(@"D:\\cap\\" + 99 + "bbb.png", result);
+            Cv2.ImWrite(@"D:\\cap\\" + count + "bbb.png", result);
 
-            MotoPray.motoPray.pbRemaster.Image = Bitmap.FromFile("D:\\cap\\" + 99 + "bbb.png");
+            MotoPray.motoPray.pbRemaster.Image = Bitmap.FromFile("D:\\cap\\" + count + "bbb.png");
             MotoPray.motoPray.pbRemaster.SizeMode = PictureBoxSizeMode.StretchImage;
         }
 
-       
+        
         // 이미지를 캡쳐하는 함수
         public void ImageCapture()
         {
-            int count = 99;
+            
 
             string path = "D:\\cap\\" + count + "aaa.png";
 
-            count++;
+            
 
             int refX = 0;
             int refY = 0;

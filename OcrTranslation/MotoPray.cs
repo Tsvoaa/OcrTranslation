@@ -42,6 +42,11 @@ namespace OcrTranslation
             cv.ImageCapture();
             cv.OpenCVImage();
 
+            Ocr ocr = new Ocr();
+
+            ocr.ImageOcr();
+
+
         }
 
         private void btnStop_Click(object sender, EventArgs e)
