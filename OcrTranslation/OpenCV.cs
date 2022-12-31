@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -67,10 +68,23 @@ namespace OcrTranslation
                 if(length > 15 && length < 200)
                 {
                     new_contours.Add(p);
+                    
+                    //Debug.WriteLine(new_contours);
                 }
             }
 
+
+            for(int i = 0; i < new_contours.Count; i++)
+            {
+                Debug.WriteLine("0번 인덱스" + new_contours[i][0]);
+                Debug.WriteLine("1번 인덱스" + new_contours[i][1]);
+            }
+
+
             
+            
+           
+
 
             Cv2.DrawContours(result, new_contours, -1, Scalar.Red, 2, LineTypes.AntiAlias);
             
