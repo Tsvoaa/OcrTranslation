@@ -51,7 +51,8 @@ namespace OcrTranslation
             // 노이즈 제거
             Cv2.MedianBlur(binary, blur, ksize: 1);
 
-            
+            // 영역을 표시하기 위한 코드
+            // 글자와 이미지 등을 구별하지 못하므로 조건을 이용하여 글자를 찾아내기
             Point[][] contours;
             HierarchyIndex[] hierarchy;
 
@@ -65,6 +66,7 @@ namespace OcrTranslation
             foreach (Point[] p in contours)
             {
                 double length = Cv2.ArcLength(p, true);
+                // 일정 길이만을 추출해서 최대한 글자가 포함되게 설정
                 if(length > 15 && length < 200)
                 {
                     new_contours.Add(p);
@@ -77,6 +79,7 @@ namespace OcrTranslation
 
             // 좌표값만 저장하기 위해 2차원 배열 선언
             // X 좌표는 0번, Y 좌표는 1번 인덱스에 저장
+            // new_contours의 1번 인덱스의 값을 사용
             int[,] location = new int[new_contours.Count, 2];
             
             for(int i = 0; i < new_contours.Count; i++)
@@ -95,7 +98,7 @@ namespace OcrTranslation
                 //Debug.WriteLine(location[i, 1] + "  1번");
 
             }
-            
+
             /*
                 X값 또는 Y값을 기준으로 크기순으로 좌표를 정리할 필요가 있음 
                 X값 기준으로 정렬 시 값이 같다면 추가적으로 Y값을 비교하여 정리
@@ -104,52 +107,107 @@ namespace OcrTranslation
                 가장 작은 값과 가장 큰 값을 저장
             */
 
-            // 좌표 값들을 X값을 기준으로 정렬하는 코드
-            for(int j = 0; j < location.GetLength(0); j++)
+            // 좌표 값들을 Y값을 기준으로 정렬하는 코드
+
+            int yLocationCount = 0;
+            int[,] ySort = (int[,])location.Clone();
+
+            for(int j = 0; j < ySort.GetLength(0); j++)
             {
-                for (int i = 1; i < location.GetLength(0); i++)
+                yLocationCount = 0;
+
+                for (int i = 1; i < ySort.GetLength(0); i++)
                 {
                     int xValue = 0;
                     int yValue = 0;
 
-                    if (location[i - 1, 0] > location[i, 0])
+                    if (ySort[i - 1, 1] > ySort[i, 1])
                     {
-                        xValue = location[i - 1, 0];
-                        yValue = location[i - 1, 1];
+                        xValue = ySort[i - 1, 0];
+                        yValue = ySort[i - 1, 1];
 
-                        location[i - 1, 0] = location[i, 0];
-                        location[i - 1, 1] = location[i, 1];
+                        ySort[i - 1, 0] = ySort[i, 0];
+                        ySort[i - 1, 1] = ySort[i, 1];
 
-                        location[i, 0] = xValue;
-                        location[i, 1] = yValue;
+                        ySort[i, 0] = xValue;
+                        ySort[i, 1] = yValue;
 
                         xValue = 0;
                         yValue = 0;
                     }
-                    else if (location[i - 1, 0] == location[i, 0])
+                    else if (ySort[i - 1, 1] == ySort[i, 1])
                     {
-                        if (location[i - 1, 1] > location[i, 1])
+                        if (ySort[i - 1, 0] > ySort[i, 0])
                         {
-                            yValue = location[i - 1, 1];
+                            yValue = ySort[i - 1, 1];
 
-                            location[i - 1, 1] = location[i, 1];
-                            location[i, 1] = yValue;
+                            ySort[i - 1, 1] = ySort[i, 1];
+                            ySort[i, 1] = yValue;
 
                             yValue = 0;
                         }
+                        // Y좌표값이 겹치는 경우를 카운트
+                        yLocationCount++;
                     }
 
                 }
             }
 
-            
+            Debug.WriteLine(yLocationCount);
 
-            for(int i = 0; i < location.GetLength(0); i++)
+            // 좌표값을 동일한 경우 최대값과 최소값으로 구분하여 나누기
+            /*
+                0번 인덱스 : Min X 좌표
+                1번 인덱스 : Max Y 좌표
+                2번 인덱스 : Y 좌표
+            */
+            int[,] mmLocation = new int[yLocationCount, 3];
+
+            int minXLoc = 0;
+            int MaxXLoc = 0;
+            int YLoc = 0;
+
+            int mmLocationCount = 0;
+
+            YLoc = ySort[0, 1];
+
+            minXLoc = ySort[0, 0];
+            MaxXLoc = ySort[0, 0];
+
+            for (int i = 1; i < ySort.GetLength(0); i++)
             {
-                Debug.Write(location[i, 0] + "  ");
-                Debug.WriteLine(location[i, 1] + "  2번");
+                
+
+                if(YLoc == ySort[i, 1])
+                {
+                    if(minXLoc > ySort[i, 0])
+                    {
+                        minXLoc = ySort[i, 0];
+                    }
+                    else if(MaxXLoc < ySort[i, 0])
+                    {
+                        MaxXLoc = ySort[i, 0];
+                    }
+                }
+                else if(YLoc != ySort[i, 1])
+                {
+                    mmLocation[mmLocationCount, 0] = minXLoc;
+                    mmLocation[mmLocationCount, 1] = MaxXLoc;
+                    mmLocation[mmLocationCount, 2] = YLoc;
+
+                    mmLocationCount++;
+
+                    YLoc = ySort[i, 1];
+                    minXLoc = ySort[i, 0];
+                    MaxXLoc = ySort[i, 0];
+                }
+
             }
 
+            for(int i =0; i < mmLocation.GetLength(0); i++)
+            {
+                Debug.WriteLine(mmLocation[i, 0] + "  " + mmLocation[i, 1] + "  " + mmLocation[i, 2]);
+            }
 
             Cv2.DrawContours(result, new_contours, -1, Scalar.Red, 2, LineTypes.AntiAlias);
             
