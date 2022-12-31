@@ -44,7 +44,7 @@ namespace OcrTranslation
 
             Ocr ocr = new Ocr();
 
-            ocr.ImageOcr();
+            //ocr.ImageOcr();
 
 
         }

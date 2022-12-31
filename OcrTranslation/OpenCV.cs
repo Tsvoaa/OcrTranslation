@@ -64,7 +64,7 @@ namespace OcrTranslation
             foreach (Point[] p in contours)
             {
                 double length = Cv2.ArcLength(p, true);
-                if(length > 100)
+                if(length > 15 && length < 200)
                 {
                     new_contours.Add(p);
                 }
@@ -89,9 +89,13 @@ namespace OcrTranslation
 
             // 이미지 생성
             Cv2.ImWrite(@"D:\\cap\\" + count + "bbb.png", result);
+            Cv2.ImWrite(@"D:\\cap\\" + count + "ccc.png", line);
 
             MotoPray.motoPray.pbRemaster.Image = Bitmap.FromFile("D:\\cap\\" + count + "bbb.png");
             MotoPray.motoPray.pbRemaster.SizeMode = PictureBoxSizeMode.StretchImage;
+
+            MotoPray.motoPray.pbOrigin.Image = Bitmap.FromFile("D:\\cap\\" + count + "ccc.png");
+            MotoPray.motoPray.pbOrigin.SizeMode = PictureBoxSizeMode.StretchImage;
         }
 
         
@@ -123,8 +127,7 @@ namespace OcrTranslation
                 bitmap.Save(path, System.Drawing.Imaging.ImageFormat.Png);
             }
 
-            MotoPray.motoPray.pbOrigin.Image = Bitmap.FromFile(path);
-            MotoPray.motoPray.pbOrigin.SizeMode = PictureBoxSizeMode.StretchImage;
+            
         }
 
 

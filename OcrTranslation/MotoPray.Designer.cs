@@ -113,17 +113,17 @@
             // 
             // pbOrigin
             // 
-            this.pbOrigin.Location = new System.Drawing.Point(12, 210);
+            this.pbOrigin.Location = new System.Drawing.Point(12, 223);
             this.pbOrigin.Name = "pbOrigin";
-            this.pbOrigin.Size = new System.Drawing.Size(404, 298);
+            this.pbOrigin.Size = new System.Drawing.Size(543, 639);
             this.pbOrigin.TabIndex = 7;
             this.pbOrigin.TabStop = false;
             // 
             // pbRemaster
             // 
-            this.pbRemaster.Location = new System.Drawing.Point(422, 212);
+            this.pbRemaster.Location = new System.Drawing.Point(561, 223);
             this.pbRemaster.Name = "pbRemaster";
-            this.pbRemaster.Size = new System.Drawing.Size(867, 532);
+            this.pbRemaster.Size = new System.Drawing.Size(867, 639);
             this.pbRemaster.TabIndex = 8;
             this.pbRemaster.TabStop = false;
             // 
@@ -131,7 +131,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1301, 756);
+            this.ClientSize = new System.Drawing.Size(1440, 874);
             this.Controls.Add(this.pbRemaster);
             this.Controls.Add(this.pbOrigin);
             this.Controls.Add(this.cbScreenSelect);
