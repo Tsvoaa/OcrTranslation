@@ -73,15 +73,26 @@ namespace OcrTranslation
                 }
             }
 
-
+            // 좌표값만 저장하기 위해 2차원 배열 선언
+            // X 좌표는 0번, Y 좌표는 1번 인덱스에 저장
+            int[,] location = new int[new_contours.Count, 2];
+            
             for(int i = 0; i < new_contours.Count; i++)
             {
-                Debug.WriteLine("0번 인덱스" + new_contours[i][0]);
-                Debug.WriteLine("1번 인덱스" + new_contours[i][1]);
+                // 순수 숫자 값만 가져오기 위해 문자열 가공
+                string[] str = new_contours[i][1].ToString().Split(' ');
+                str[0] = str[0].Substring(3);
+                str[1] = str[1].Substring(2);
+                str[1] = str[1].Substring(0, str[1].Length - 1);
+
+                
+                location[i, 0] = int.Parse(str[0]);
+                location[i, 1] = int.Parse(str[1]);
+
+                //Debug.WriteLine(location[i, 0]);
+                //Debug.WriteLine(location[i, 1]);
+
             }
-
-
-            
             
            
 
