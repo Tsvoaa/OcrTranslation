@@ -73,6 +73,8 @@ namespace OcrTranslation
                 }
             }
 
+           
+
             // 좌표값만 저장하기 위해 2차원 배열 선언
             // X 좌표는 0번, Y 좌표는 1번 인덱스에 저장
             int[,] location = new int[new_contours.Count, 2];
@@ -89,12 +91,64 @@ namespace OcrTranslation
                 location[i, 0] = int.Parse(str[0]);
                 location[i, 1] = int.Parse(str[1]);
 
-                //Debug.WriteLine(location[i, 0]);
-                //Debug.WriteLine(location[i, 1]);
+                //Debug.Write(location[i, 0] + "  ");
+                //Debug.WriteLine(location[i, 1] + "  1번");
 
             }
             
-           
+            /*
+                X값 또는 Y값을 기준으로 크기순으로 좌표를 정리할 필요가 있음 
+                X값 기준으로 정렬 시 값이 같다면 추가적으로 Y값을 비교하여 정리
+                
+                정리된 좌표값을 기준으로 X값 또는 Y값이 동일한 값들을 비교하여
+                가장 작은 값과 가장 큰 값을 저장
+            */
+
+            // 좌표 값들을 X값을 기준으로 정렬하는 코드
+            for(int j = 0; j < location.GetLength(0); j++)
+            {
+                for (int i = 1; i < location.GetLength(0); i++)
+                {
+                    int xValue = 0;
+                    int yValue = 0;
+
+                    if (location[i - 1, 0] > location[i, 0])
+                    {
+                        xValue = location[i - 1, 0];
+                        yValue = location[i - 1, 1];
+
+                        location[i - 1, 0] = location[i, 0];
+                        location[i - 1, 1] = location[i, 1];
+
+                        location[i, 0] = xValue;
+                        location[i, 1] = yValue;
+
+                        xValue = 0;
+                        yValue = 0;
+                    }
+                    else if (location[i - 1, 0] == location[i, 0])
+                    {
+                        if (location[i - 1, 1] > location[i, 1])
+                        {
+                            yValue = location[i - 1, 1];
+
+                            location[i - 1, 1] = location[i, 1];
+                            location[i, 1] = yValue;
+
+                            yValue = 0;
+                        }
+                    }
+
+                }
+            }
+
+            
+
+            for(int i = 0; i < location.GetLength(0); i++)
+            {
+                Debug.Write(location[i, 0] + "  ");
+                Debug.WriteLine(location[i, 1] + "  2번");
+            }
 
 
             Cv2.DrawContours(result, new_contours, -1, Scalar.Red, 2, LineTypes.AntiAlias);
