@@ -256,7 +256,7 @@ namespace OcrTranslation
                 1번 인덱스 : Max Y 좌표
                 2번 인덱스 : X 좌표
             */
-            int[,] mmXLocation = new int[xLocationCount, 3];
+            int[,] mmXLocation = new int[xLocationCount * 2, 3];
 
             int minYLoc = 0;
             int MaxYLoc = 0;
@@ -304,10 +304,105 @@ namespace OcrTranslation
             // minX, MaxX, minY, MaxY의 값을 구하고 Rectangle로 영역 지정
             int minX = 0;
             int minY = 0;
-            int MaxX = 0;
-            int MaxY = 0;
+            int maxX = 0;
+            int maxY = 0;
 
-            int[][] rectLocation;
+            int[,] rectLocation = new int[ySort.GetLength(0), 4];
+            int rectCount = 0;
+
+            minX = ySort[0, 0];
+            minY = ySort[0, 1];
+            maxX = ySort[0, 0];
+            maxY = ySort[0, 1];
+
+            for (int i = 1; i < ySort.GetLength(0); i++)
+            {
+                int baseY = (int)(minY + maxY) / 2;
+                int baseX = (int)(minX + maxX) / 2;
+
+                if(ySort[i, 1] + 3 > baseY || ySort[i, 1] - 3 < baseY)
+                {
+                    if(ySort[i, 0] + 100 > baseX || ySort[i, 0] - 100 < baseX)
+                    {
+                        if (minY > ySort[i, 1])
+                        {
+                            minY = ySort[i, 1];
+                        }
+                        else if (maxY < ySort[i, 1])
+                        {
+                            maxY = ySort[i, 1];
+                        }
+                        
+                        if(minX > ySort[i, 0])
+                        {
+                            minX = ySort[i, 0];
+                        }
+                        else if(maxX < ySort[i, 0])
+                        {
+                            maxX = ySort[i, 0];
+                        }
+                    }
+                    else
+                    {
+                        rectLocation[rectCount, 0] = minX;
+                        rectLocation[rectCount, 1] = minY;
+                        rectLocation[rectCount, 2] = maxX;
+                        rectLocation[rectCount, 3] = maxY;
+
+                        minX = ySort[i, 0];
+                        minY = ySort[i, 1];
+                        maxX = ySort[i, 0];
+                        maxY = ySort[i, 1];
+
+                        rectCount++;
+                    }
+
+                    
+                }
+                else
+                {
+                    rectLocation[rectCount, 0] = minX;
+                    rectLocation[rectCount, 1] = minY;
+                    rectLocation[rectCount, 2] = maxX;
+                    rectLocation[rectCount, 3] = maxY;
+
+                    minX = ySort[rectCount, 0];
+                    minY = ySort[rectCount, 1];
+                    maxX = ySort[rectCount, 0];
+                    maxY = ySort[rectCount, 1];
+
+                    rectCount++;
+                }
+
+                rectLocation[rectCount, 0] = minX;
+                rectLocation[rectCount, 1] = minY;
+                rectLocation[rectCount, 2] = maxX;
+                rectLocation[rectCount, 3] = maxY;
+
+                minX = ySort[rectCount, 0];
+                minY = ySort[rectCount, 1];
+                maxX = ySort[rectCount, 0];
+                maxY = ySort[rectCount, 1];
+
+                rectCount++;
+
+            }
+
+            
+
+            for(int i = 0; i < rectLocation.GetLength(0); i++)
+            {
+                //Debug.WriteLine(rectLocation[i, 0] + "  " + rectLocation[i, 1] + "  " + rectLocation[i, 2] + "  " + rectLocation[i, 3]);
+
+                
+
+                if (!(rectLocation[i, 0] == 0 && rectLocation[i, 1] == 0 && rectLocation[i, 2] == 0 && rectLocation[i, 3] == 0))
+                {
+                    Rect locationRect = new Rect(rectLocation[i, 0], rectLocation[i, 1], rectLocation[i, 2], rectLocation[i, 3]);
+                    Cv2.Rectangle(result, locationRect, Scalar.Blue, 2);
+                }
+
+            }
 
 
             
