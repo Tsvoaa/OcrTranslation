@@ -11,7 +11,7 @@ namespace OcrTranslation
     internal class Ocr
     {
         private static int count = 99;
-        private static string path = "D:\\cap\\" + count + "bbb.png";
+        private static string path = "D:\\cap\\" + count + "aaa.png";
 
 
         public void ImageOcr()
@@ -21,7 +21,10 @@ namespace OcrTranslation
             Pix pix = Pix.LoadFromFile(@path);
             
 
-            var ocr = new TesseractEngine(@"./tessdata", "eng", EngineMode.TesseractAndLstm);
+            using var ocr = new TesseractEngine(@"./tessdata", "eng", EngineMode.Default);
+
+            
+
             var texts = ocr.Process(pix);
 
             MessageBox.Show(texts.GetText());

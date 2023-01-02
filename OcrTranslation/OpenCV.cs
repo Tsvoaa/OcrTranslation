@@ -391,7 +391,7 @@ namespace OcrTranslation
 
             rectCompess2 = rectLocation;
 
-            for(int j = 0; j < 5; j++)
+            for(int j = 0; j < 0; j++)
             {
                 
 
@@ -496,9 +496,9 @@ namespace OcrTranslation
                 {
                     break;
                 }
-
                 Rect locationRect = new Rect(rectCompess[i, 0] + 10, rectCompess[i, 1] - 50, rectCompess[i, 2], rectCompess[i, 3]);
-                Cv2.Rectangle(result, locationRect, Scalar.Blue, 2);
+                Cv2.Rectangle(result, locationRect, Scalar.YellowGreen, 2);
+
 
             }
 
