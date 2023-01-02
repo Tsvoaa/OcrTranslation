@@ -391,7 +391,7 @@ namespace OcrTranslation
 
             rectCompess2 = rectLocation;
 
-            for(int j = 0; j < 0; j++)
+            for(int j = 0; j < 4; j++)
             {
                 
 
